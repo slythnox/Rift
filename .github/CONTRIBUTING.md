@@ -1,12 +1,12 @@
-# 🤝 Contributing to Napster
+# 🤝 Contributing to Rift
 
-Thanks for considering a contribution to **Napster**. This document describes the current development process.
+Thanks for considering a contribution to **Rift**. This document describes the current development process.
 
 ## 🛠️ Project Layout
 
-Napster is a Gradle multi-module Android Studio project. The pieces you'll actually touch:
+Rift is a Gradle multi-module Android Studio project. The pieces you'll actually touch:
 
-* **`app/`** — the app itself. Compose UI, feature packages, playback, core data, and integrations live under `app/src/main/kotlin/com/beatwave/music/`.
+* **`app/`** — the app itself. Compose UI, feature packages, playback, core data, and integrations live under `app/src/main/kotlin/com/rift/music/`.
 * **`ui/component/GlassEffect.kt`** + **`ui/component/backdrop/`** — the Liquid Glass system (a vendored, source-included copy of [Kyant0/backdrop](https://github.com/Kyant0/backdrop)). `Modifier.liquidGlass(...)` is the entry point most UI code needs; see the doc comment on `GlassCircleButton` for a worked example of a glass surface sampling a local backdrop.
 * **`innertube/`** — the unofficial YouTube Music (InnerTube) API client, kept independent of the app module.
 * Other top-level modules (`kugou`, `lrclib`, `lastfm`, `betterlyrics`, `simpmusic`, `youlyplus`, `spotify`, and provider modules) are individually-scoped integrations. Keep changes scoped to the relevant module.
@@ -31,7 +31,7 @@ Napster is a Gradle multi-module Android Studio project. The pieces you'll actua
 
 ## 🐞 Reporting Bugs
 
-Open an [issue](https://github.com/slythnox/Napster/issues) with repro steps, your Android version/device, and `adb logcat` output if it's a crash. A screen recording is helpful for visual or playback regressions.
+Open an [issue](https://github.com/slythnox/Rift/issues) with repro steps, your Android version/device, and `adb logcat` output if it's a crash. A screen recording is helpful for visual or playback regressions.
 
 ## 💬 Questions
 

@@ -1,16 +1,17 @@
 # Database and Preferences Architecture
 
-This document describes the local persistence layer of Napster, including Room SQLite schemas, migrations, Data Access Objects (DAOs), transaction safety, and Jetpack DataStore preferences.
+This document describes the local persistence layer of Rift, including Room SQLite schemas, migrations, Data Access Objects (DAOs), transaction safety, and Jetpack DataStore preferences.
 
 ---
 
-## 1. Room SQLite Database (`com.beatwave.music.db`)
+## 1. Room SQLite Database (`com.rift.music.db`)
 
-Napster relies on AndroidX Room for all structured local persistence. The database definition and configuration are maintained in `InternalDatabase.kt` and injected via Dagger Hilt in `DatabaseModule.kt`.
+Rift relies on AndroidX Room for all structured local persistence. The database definition and configuration are maintained in `MusicDatabase.kt` / `InternalDatabase` and injected via Dagger Hilt in `AppModule.kt`.
 
-- **Current Schema Version:** 37
-- **Schema Export Directory:** `app/schemas/com.beatwave.music.db.InternalDatabase/`
-- **Database File:** `internal.db` within the application private storage directory.
+- **Current Schema Version:** 38
+- **Primary Schema Export Directory:** `app/schemas/com.rift.music.db.InternalDatabase/` (with `app/schemas/com.beatwave.music.db.InternalDatabase/` retained for historical discovery).
+- **Database File:** `song.db` within the application private storage directory (`/data/data/com.napster.music/databases/`).
+- **Compiled Identity Hash:** `de260a1f8fcef65830e287325ab3b697` (identical across old and new namespace schema 38 exports, ensuring non-destructive opening).
 
 ### Core Database Entities
 
@@ -24,6 +25,14 @@ Napster relies on AndroidX Room for all structured local persistence. The databa
 | `SearchHistory` | Caches recent search queries locally on device. |
 | `DownloadEntity` / `FormatEntity` | Tracks offline media segments, formats, file paths, and download completion states. |
 | `RecognitionHistory` | **Compatibility entity:** Preserved in the Room schema to ensure that database migrations from earlier application versions remain continuous without requiring schema destruction or complex table migrations. |
+| `DislikedSongEntity` | **Schema v38 Entity:** Persists disliked tracks (`disliked_song` table) with YouTube/Spotify IDs, titles, artists, albums, duration, and normalized title/artist tokens for instant cross-provider exclusion. |
+
+### Room Database Migration 37 → 38 (`DatabaseMigration37To38Test.kt`)
+
+Room schema version 38 introduces the `disliked_song` table along with a composite index:
+- **Table Definition:** `disliked_song (id TEXT PRIMARY KEY, title TEXT NOT NULL, artist TEXT NOT NULL, album TEXT, duration INTEGER NOT NULL, thumbnailUrl TEXT, normalizedTitle TEXT NOT NULL, normalizedArtist TEXT NOT NULL, dislikedAt TEXT NOT NULL)`
+- **Composite Index:** `index_disliked_song_normalizedTitle_normalizedArtist` on `(normalizedTitle, normalizedArtist)` for fast cross-provider dislike lookups.
+- **Auto-Migration Verification:** Validated via an in-memory SQLite fixture test (`DatabaseMigration37To38Test`) that applies `InternalDatabase_AutoMigration_37_38_Impl` directly to a populated version-37 schema fixture, proving all 18 existing tables and representative user records survive intact.
 
 ### Data Access Object Optimisations (`DatabaseDao.kt`)
 
@@ -35,7 +44,7 @@ Napster relies on AndroidX Room for all structured local persistence. The databa
 
 ## 2. Jetpack DataStore Preferences
 
-Reactive user configuration is maintained via AndroidX DataStore Preferences, defined primarily across `com.beatwave.music.constants.PreferenceKeys`.
+Reactive user configuration is maintained via AndroidX DataStore Preferences, defined primarily across `com.rift.music.constants.PreferenceKeys`.
 
 ### Core Preference Domains
 
@@ -45,6 +54,7 @@ Reactive user configuration is maintained via AndroidX DataStore Preferences, de
   - Crossfade transition duration (`CrossfadeDurationKey`)
   - Persistent queue state (`PersistentQueueKey`)
   - Sleep timer interval and auto-load more recommendations (`AutoLoadMoreKey`)
+  - Persistent Autoplay queue continuation (`AutoPlayKey`)
 - **Appearance & Theme:**
   - Dark mode preference (`DarkModeKey`)
   - Pure Black OLED theme toggle (`PureBlackKey`)
@@ -61,6 +71,15 @@ Reactive user configuration is maintained via AndroidX DataStore Preferences, de
 - **Integrations:**
   - Last.fm session credentials and scrobble state (`LastFmSessionKey`, `LastFmScrobbleKey`)
   - ListenBrainz user token and scrobble enable (`ListenBrainzTokenKey`, `ListenBrainzEnabledKey`)
+
+### Bounded Negative Feedback Journal (si_negative_journal)
+
+In addition to standard user preferences, AndroidX DataStore is leveraged for the Project ASI negative feedback journal (si_negative_journal):
+- **Atomic Operations:** Stores serialized JSON records capturing negative user feedback signals (intentional early skips, disliked entries) with monotonic sequence tokens.
+- **Bounding & Expiration:** Automatically pruned to a hard ceiling of 200 items, with records older than 14 days expired on each update transaction.
+- **Zero SQLite Schema Churn:** Persisting negative signals within DataStore avoids continuous database writes or schema modifications on frequent track transitions.
+
+---
 
 ### Concurrency and Thread Safety
 

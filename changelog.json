@@ -1,7 +1,71 @@
 {
-  "description": "Napster 1.0.4 \u2014 Consolidated Audio Quality, Speed Dial & Quick Picks, Next Song Recommendations, and Queue Enhancements.",
+  "description": "Rift 1.0.5 — Official Rebrand to Rift, Modern Red Accent Identity, Widget Visual Polish, and Comprehensive Performance Overhaul.",
   "image": "",
   "changelog": [
+    {
+      "title": "Official Rebrand to Rift & Visual Identity",
+      "items": [
+        "Full application rebrand to Rift across launcher icons, splash screen, and interface typography, preserving complete update compatibility with applicationId = \"com.napster.music\".",
+        "Introduced the signature cassette tape logo featuring a vibrant red outline (#F20329) and white spools on a pitch-black background.",
+        "Adaptive and monochrome icon support for Android 13+ Material You themed app icons.",
+        "Immersive red ambient atmospheric glow on the Home screen, paired with crisp red accent typography (#FF4D68) and updated interactive controls.",
+        "Refreshed splash screen with high-fidelity uncompressed vector cassette rendering."
+      ]
+    },
+    {
+      "title": "Home Screen & App Widget Visual Polish",
+      "items": [
+        "Refined Dot Matrix, Vinyl Deck, and Dynamic Lyrics home screen widgets with high-definition XML preview layouts in the Android widget picker.",
+        "Smooth idle state rendering: displays elegant non-transparent fallback surfaces and uncompressed music icons when no track is currently playing.",
+        "Eliminated visual artifacting and bounding boxes on the Vinyl Deck turntable disc animation.",
+        "Harmonized aspect ratio and icon proportions on the Dynamic Lyrics widget."
+      ]
+    },
+    {
+      "title": "Codebase Architecture & Namespace Migration",
+      "items": [
+        "Migrated core application source code to Kotlin package namespace com.rift.music with zero disruption to Room database (song.db) or user settings.",
+        "Preserved all historical Room database schemas (1.json through 38.json) for seamless in-place schema discovery and migration.",
+        "Comprehensive documentation overhaul across all architectural guides, setup documentation, and licensing notices."
+      ]
+    },
+    {
+      "title": "Speed Dial 5-Dot Random Discovery & Anti-Repetition Queue",
+      "items": [
+        "Fixed Speed Dial matrix alignment: restructured the 5-dot Random button layout to mathematically match SpeedDialGridItem card dimensions, corner radius, and text baseline with a centered \"Random\" caption.",
+        "Implemented RandomDiscoveryQueue: instant preloaded playback (zero buffering delay) seeded by a randomly sampled track from genuine recent listening history (recentEvents(100)).",
+        "Strict anti-fatigue filtering: automatically excludes the user's top 30 most-played songs, recent 50 history events, and disliked songs, eliminating repetitive playback loops of the same 7-8 familiar tracks.",
+        "Atmosphere & genre matching: dynamically queries YouTube Related and Radio endpoints seeded by the selected song to preserve sonic character and tempo.",
+        "Novelty boost & diversity cap: prioritizes newer deep-catalog releases (2023+) and strictly caps artist representation to at most 2 tracks per artist across the queue, with seamless background pagination."
+      ]
+    },
+    {
+      "title": "Adaptive Session Intelligence (ASI 1.0)",
+      "items": [
+        "Engineered on-device recommendation intelligence modeling the listening session dynamically across 8 atmosphere profiles (Party, Workout, Relaxed, Romantic, Focus, Discovery, Commute, General).",
+        "Centralized feedback classification capturing explicit user commands across UI, MediaSession, notifications, and Bluetooth AVRCP (natural completion, intentional skip, manual track selection, replay).",
+        "Room DB historical event reconstruction: extracts authentic song metadata, artist names, timestamps, and completion rates from internal SQLite entities without seed assumptions.",
+        "Multi-source candidate generator with hard exclusion filters (dislikes, negative signal journal, active queue, cooldown) and canonical track identity resolution.",
+        "Bounded beam search sequence optimization (K=4, horizon H=5) with harmonic BPM matching, acoustic delta gating, and renormalized sparse acoustic dimensions.",
+        "Dynamic preference integration via EnableAsiAutoplayKey in DataStore with non-blocking fallback to baseline recommendations."
+      ]
+    },
+    {
+      "title": "Settings > App Usage: Real-Time Performance & Data Telemetry Graphs",
+      "items": [
+        "Overhauled Settings > App Usage to provide intuitive time-series visual graphs for CPU usage, GPU frame rendering/performance, and Network data consumption.",
+        "Tracks cellular and Wi-Fi data usage independently with total transferred megabyte accounting.",
+        "Renders smooth, flicker-free time-series metrics utilizing cubic Bézier path interpolation.",
+        "Eliminated redundant background polling daemons to maintain near-zero idle overhead."
+      ]
+    },
+    {
+      "title": "Home Screen Header Refinement",
+      "items": [
+        "Streamlined the top application bar on the Home screen to feature only the clean brand wordmark, removing the redundant top settings icon.",
+        "Maintained instant access to Settings via the persistent floating bottom navigation pill dock."
+      ]
+    },
     {
       "title": "Home Screen: Speed Dial, Quick Picks & New Releases",
       "items": [
@@ -32,6 +96,72 @@
         "Fixed playlist playback to ensure true sequential playback starting from any randomly selected track.",
         "Added one-tap Clear Queue action button directly in the Queue header with responsive feedback.",
         "Integrated an accessible Autoplay toggle chip right into the Queue header row."
+      ]
+    },
+    {
+      "title": "Direct Long-Press Queue Reordering & Media3 Shuffle Sync",
+      "items": [
+        "Replaced the separate queue unlock button with direct long-press drag-and-drop reordering featuring elevation, haptics, and edge auto-scrolling.",
+        "Integrated Media3 shuffle-aware synchronization, updating DefaultShuffleOrder in-place without interrupting active playback or restarting songs.",
+        "Added TalkBack custom accessibility actions on queue items for keyboard and screen-reader users."
+      ]
+    },
+    {
+      "title": "Persistent Disliked Songs & Restoration Management",
+      "items": [
+        "Introduced Room database schema version 38 with a dedicated disliked_song table and composite index for cross-provider song exclusion.",
+        "Disliking a track immediately skips playback and permanently excludes matching tracks across queue continuation and automix.",
+        "Full parity across Player and Queue three-dot menus with reactive toggle cues, toast alerts, and persistent database synchronization.",
+        "Added a dedicated Disliked Songs management screen under Settings allowing one-tap restoration of disliked tracks."
+      ]
+    },
+    {
+      "title": "Progressive Recommendation Selection & Autoplay Controls",
+      "items": [
+        "Implemented a two-phase progressive recommendation algorithm with a 40-track cooldown window, mathematically guaranteeing fresh tracks precede recent tracks.",
+        "Maintains artist and album diversity across consecutive tracks with automated relaxation in Artist Radio mode.",
+        "Added an accessible Autoplay infinity toggle in Queue and Player controls with fallback to official YouTube Radio stations."
+      ]
+    },
+    {
+      "title": "High-Capacity Spotify Public Playlist Import & Background Execution",
+      "items": [
+        "Upgraded public Spotify playlist importer to paginate large playlists beyond 1,000 tracks via unauthenticated embed guest sessions and Pathfinder GraphQL.",
+        "Added 'Do in background' option in import progress dialog, allowing users to leave the app while the import finishes in an application-scoped supervisor coroutine.",
+        "Delivers an Android system notification ('Playlist Imports') and toast upon import completion with playlist title and total resolved songs.",
+        "Honors server Retry-After headers, automatically refreshes expired guest tokens on HTTP 401, and aborts cleanly on permanent 403 responses.",
+        "Preserves intentional duplicate playlist entries and exact track ordering without premature client deduplication."
+      ]
+    },
+    {
+      "title": "Homepage 'More from this artist' & Content Settings Streamlining",
+      "items": [
+        "Updated the 'More from this artist' homepage carousels to exclusively showcase other songs by artists the user listens to, directly querying artist discography and filtering explicit/video content per user preferences.",
+        "Removed legacy diagnostic logs section (playback logs and client probe dialogs) from Settings > Content.",
+        "Cleaned up the Misc category in Settings > Content by removing randomize home order and manual home feed arrangement toggles."
+      ]
+    },
+    {
+      "title": "Playback Reliability, Error Recovery & Diagnostics Ring Buffer",
+      "items": [
+        "Fixed intermittent playback halts caused by Media3 STATE_BUFFERING dropping user play intent during network quality and IPv6 stream reloads.",
+        "Resolved AudioTrack renderer recovery bug that paused playback upon sink reinitialization without resuming.",
+        "Fixed transient audio focus loss state capture so playback cleanly auto-resumes when audio focus is regained.",
+        "Ensured error recovery routines (expired URLs, 416 range errors, parsing errors, page reloads) resume playback when user intended to play.",
+        "Exempted external streaming providers (Tidal, Spine, JioSaavn, HTTP add-ons) from 10MB chunk truncation, preventing unexpected end-of-input mid-song.",
+        "Classified HTTP 410 (Gone) as an expired streaming URL alongside HTTP 403, triggering fresh URL resolution.",
+        "Added PlaybackDiagnostics in-memory circular ring buffer tracking the last 100 playback events for zero-overhead troubleshooting."
+      ]
+    },
+    {
+      "title": "Search Screen History Tab & Album Tab Replacement",
+      "items": [
+        "Replaced the redundant Album tab on the search page with a dedicated History tab.",
+        "Displays complete chronological search history with reactive updates from Room database.",
+        "One-tap search execution on any past query directly from the search screen.",
+        "Arrow fill button to load queries into the search bar for swift editing.",
+        "Individual item deletion and full history clear action with confirmation dialog.",
+        "Contextual empty state and pause-status indicator when search history is paused."
       ]
     }
   ]

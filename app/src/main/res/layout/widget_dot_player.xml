@@ -13,6 +13,7 @@
         android:layout_gravity="center"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
+        android:src="@drawable/preview_widget_dot"
         android:contentDescription="@string/album_art" />
 
     <!-- Transparent touch overlay: Left = Previous, Center = Play/Pause, Right = Next -->

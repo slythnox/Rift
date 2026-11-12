@@ -118,6 +118,12 @@ Unit tests live in `app/src/test/` and cover all core architecture components:
 |---|---|---|
 | `AddonClientTest` | `app/src/test/.../addon/` | Manifest discovery, search queries, 500 error handling, HTTP 429 Retry-After backoff, request deduplication via `SharedCalls`, direct `streamURL` bypass, and remix/live rejection. Uses standard in-process Java `HttpServer`. |
 | `FlacTaggerTest` | `app/src/test/.../download/` | Rejection of non-FLAC byte streams, safe fallback on corrupt/truncated headers, UTF-8 multilingual metadata preservation, synchronized lyrics, word-timed lyrics embedding, and byte-exact audio frame preservation. |
+| `DatabaseMigration37To38Test` | `app/src/test/.../db/` | Genuine SQLite migration test using a version-37 schema fixture and Room's compiled auto-migration class (`InternalDatabase_AutoMigration_37_38_Impl`), proving that representative existing user data across all 18 tables survives and that the `disliked_song` table, NOT NULL constraints, unique primary keys, and composite indexes validate correctly. |
+| `QueueReorderingTest` | `app/src/test/.../playback/` | Media3 `DefaultShuffleOrder` permutation updates without timeline modification, linear timeline reordering without playback interruption, moving currently playing item without restart, duplicate track UID independence, and TalkBack accessibility action limits. |
+| `RecommendationPostProcessorTest` | `app/src/test/.../playback/` | Deterministic recommendation post-processing, strict dislike exclusion, 40-track cooldown window, two-phase progressive selection proving fresh tracks precede recent tracks even with high original indices, and artist/album diversity. |
+| `SpotifyImportPaginationTest` | `app/src/test/.../feature/spotifyimport/` | High-capacity Spotify pagination (1,000+ tracks), rate-limit backoff respecting `Retry-After`, session refresh on 401, intentional duplicate track preservation, and cancellation handling. |
+| `DislikeFeatureTest` | `app/src/test/.../playback/` | Dislike toggle, Room persistence, cross-provider matching, and queue auto-skipping. |
+
 | `NetworkQualityPreferenceTest` | `app/src/test/.../playback/` | Independent Wi-Fi and mobile resolution, transport precedence over metered Wi-Fi, fallback to global `AudioQualityKey`, Data Saver override, and mid-session transitions. |
 | `AudioDiagnosticsTest` | `app/src/test/.../audio/` | Decoder input monitoring, downgrade detection (claimed lossless vs lossy stream), float carrier normalization, and UI badge formatting. |
 | `TrackMatcherTest` | `app/src/test/.../addon/` | Track scoring, noise stripping (e.g. "- Topic", "Official Video"), and duration delta penalization. |
@@ -136,8 +142,8 @@ The repository includes GitHub Actions workflows:
 
 | Workflow | File | Trigger | Artifact |
 |---|---|---|---|
-| Nightly build | `.github/workflows/nightly.yml` | Manual / scheduled | `napster-gms-nightly` |
-| Release build | `.github/workflows/release.yml` | On published release | `napster-gms-release` |
+| Nightly build | `.github/workflows/nightly.yml` | Manual / scheduled | `rift-gms-nightly` |
+| Release build | `.github/workflows/release.yml` | On published release | `rift-gms-release` |
 
 Nightly builds accept a `-Pnightly=true` Gradle property that appends the run number to the version name.
 
@@ -145,10 +151,20 @@ Nightly builds accept a `-Pnightly=true` Gradle property that appends the run nu
 
 ## Room Schema
 
-Room schema exports are stored in `app/schemas/com.beatwave.music.db.InternalDatabase/`. The current schema version is **37**. When adding a Room entity or column, increment the version, add a migration in `InternalDatabase.kt`, and export the schema by running the build (or the `generateRoomSchemas` task if configured). Never modify existing migration files.
+Room schema exports are stored in `app/schemas/com.rift.music.db.InternalDatabase/` (with historical schemas also preserved in `app/schemas/com.beatwave.music.db.InternalDatabase/`). The current schema version is **38**. When adding a Room entity or column, increment the version, add a migration in `InternalDatabase.kt`, and export the schema by running the build (or the `generateRoomSchemas` task if configured). Never modify existing migration files.
 
 ---
 
 ## Troubleshooting Builds
 
 See [`docs/TROUBLESHOOTING.md`](TROUBLESHOOTING.md) for common build failures and their resolutions.
+
+### Test Dependency Isolation
+Testing libraries required for genuine in-memory SQLite migration tests (`org.xerial:sqlite-jdbc` and `androidx.room:room-testing`) are declared strictly in `testImplementation` configurations within `app/build.gradle.kts`. They are completely excluded from `arm64FossReleaseRuntimeClasspath` and are never packaged into production release APKs.
+
+### Playback Reliability & Diagnostics Unit Tests
+Playback state management, audio focus recovery, provider subrange policies, and HTTP 410/403 expired URL classifications are verified under `app/src/test/kotlin/com/rift/music/playback/PlaybackReliabilityAndDiagnosticsTest.kt`.
+To execute these tests individually:
+```powershell
+.\gradlew.bat --no-daemon :app:testArm64FossDebugUnitTest --tests "com.rift.music.playback.PlaybackReliabilityAndDiagnosticsTest"
+```

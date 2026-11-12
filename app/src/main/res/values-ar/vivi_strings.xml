@@ -325,9 +325,9 @@
     <string name="wrapped_playlist_saved">تم حفظ قائمة التشغيل</string>
     <string name="casting_to">التحويل إلى %s</string>
     <string name="progress_percent">التقدم %s%%</string>
-    <string name="listening_to_vivimusic">الاستماع إلى Napster</string>
+    <string name="listening_to_vivimusic">الاستماع إلى RIFT</string>
     <string name="listen_on_youtube_music">استمع عبر يوتيوب ميوزك</string>
-    <string name="visit_vivimusic">قم بزيارة Napster</string>
+    <string name="visit_vivimusic">قم بزيارة RIFT</string>
     <string name="open">فتح</string>
     <string name="failed_to_create_image">فشل إنشاء الصورة: %s</string>
     <string name="failed_to_parse_proxy">فشل تحليل عنوان URL للوكيل.</string>
@@ -619,7 +619,7 @@
     <string name="button_text">نص الزر</string>
     <string name="button_visible">مرئي</string>
     <string name="login_successful">تم تسجيل الدخول بنجاح!</string>
-    تشغيل Napster
-    مشاهدة Napster
+    تشغيل RIFT
+    مشاهدة RIFT
     التنافس في 
 </resources>

@@ -57,7 +57,7 @@
     <string name="excluded_folders">Excluded folders</string>
     <string name="excluded_folders_desc">Choose which on-device folders local-only mode scans</string>
     <string name="excluded_folders_empty">No folders with music found yet. Tap Scan device to look again.</string>
-    <string name="excluded_folders_permission">Napster needs permission to read audio on this device before it can list your folders.</string>
+    <string name="excluded_folders_permission">RIFT needs permission to read audio on this device before it can list your folders.</string>
     <string name="excluded_folders_custom">Excluded by hand</string>
     <string name="exclude_folder_add">Add folder</string>
     <string name="excluded_folders_song_count">%1$d songs</string>
@@ -526,7 +526,7 @@
     <string name="karaoke">Karaoke</string>
     <string name="apple_music_style">Apple Music</string>
     <string name="apple_music_style_letter">Apple Music V2 (Letter by Letter)</string>
-    <string name="vivimusic_1">Napster (Fluid)</string>
+    <string name="vivimusic_1">Rift (Fluid)</string>
     <string name="apple_music_lyrics_blur">Apple Music Lyrics Blur</string>
     <string name="apple_music_lyrics_blur_desc">Apply blur to inactive lyrics lines for a premium focus effect</string>
     <string name="lyrics_v2_fluid">Lyrics V2 (Fluid)</string>
@@ -568,7 +568,7 @@
     <string name="wrapped_ready_title">YOUR WRAPPED IS READY!</string>
     <string name="wrapped_ready_subtitle">Time to see what you loved this year.</string>
     <string name="wrapped_thank_you">Thank you for listening</string>
-    <string name="wrapped_special_thanks">Special thanks to Vividh for creating the app  is built on</string>
+    <string name="wrapped_special_thanks">Special thanks to Vividh for creating vivi-music, the app Rift is built on</string>
     <string name="wrapped_close">Close wrapped</string>
     <string name="wrapped_playlist_title">Your %s Wrapped</string>
     <string name="wrapped_create_playlist">Create playlist</string>
@@ -599,7 +599,7 @@
     <string name="error_eq_apply_failed">Failed to apply EQ profile: %1$s</string>
 
     <!-- ViviEqualizer Strings -->
-    <string name="vivi_equalizer">Napster Equalizer</string>
+    <string name="vivi_equalizer">Rift Equalizer</string>
     <string name="vivi_equalizer_desc">Pro-grade acoustic tuning &amp; effects</string>
     <string name="eq_simple">Simple</string>
     <string name="eq_advanced">Advanced</string>
@@ -607,7 +607,7 @@
     <string name="eq_label_mid">Mids</string>
     <string name="eq_label_treble">Treble</string>
     <string name="eq_preset_flat">Flat</string>
-    <string name="eq_preset_vivi_signature">Napster Signature</string>
+    <string name="eq_preset_vivi_signature">Rift Signature</string>
     <string name="eq_preset_acoustic">Acoustic</string>
     <string name="eq_preset_spatial">3D Stage</string>
     <string name="eq_preset_bass_boost">Bass Boost</string>
@@ -624,9 +624,9 @@
     <string name="eq_preset_dirac_music">Dirac Music</string>
     <string name="eq_preset_dirac_movie">Dirac Movie</string>
     <string name="eq_preset_dirac_game">Dirac Game</string>
-    <string name="eq_enable_title">Napster Equalizer</string>
+    <string name="eq_enable_title">Rift Equalizer</string>
     <string name="eq_enable_summary">Toggle professional audio processing</string>
-    <string name="eq_label_vivi">Napster Signature</string>
+    <string name="eq_label_vivi">Rift Signature</string>
     <string name="eq_label_dolby">Dolby Atmos</string>
     <string name="eq_label_dirac">Dirac Audio</string>
     <string name="eq_reset">Reset</string>
@@ -644,9 +644,9 @@
     <string name="plays">plays</string>
     <string name="casting_to">Casting to %s</string>
     <string name="progress_percent">Progress %s%%</string>
-    <string name="listening_to_vivimusic">Listening to Napster</string>
+    <string name="listening_to_vivimusic">Listening to Rift</string>
     <string name="listen_on_youtube_music">Listen on YouTube Music</string>
-    <string name="visit_vivimusic">Visit Napster</string>
+    <string name="visit_vivimusic">Visit Rift</string>
     <string name="open">Open</string>
     <string name="failed_to_create_image">Failed to create image: %s</string>
     <string name="copied_title">Copied Title</string>
@@ -670,16 +670,16 @@
     <string name="like">Like</string>
     <string name="not_playing">No song playing</string>
     <string name="tap_to_play">Tap to open </string>
-    <string name="widget_music_player">Napster Dot Player</string>
-    <string name="widget_dot_player">Napster Dot Player</string>
+    <string name="widget_music_player">Rift Dot Player</string>
+    <string name="widget_dot_player">Rift Dot Player</string>
     <string name="widget_dot_player_desc">Compact 2×2 dot equaliser and album art player</string>
-    <string name="widget_lyrics_player">Napster Lyrics Player</string>
+    <string name="widget_lyrics_player">Rift Lyrics Player</string>
     <string name="widget_lyrics_player_desc">Split-panel album artwork and synchronised lyrics display</string>
-    <string name="widget_vinyl_deck">Napster Vinyl Deck</string>
+    <string name="widget_vinyl_deck">Rift Vinyl Deck</string>
     <string name="widget_vinyl_deck_desc">Retro vinyl record player with album art and transport controls</string>
-    <string name="widget_lyrics">Napster Lyrics Player</string>
+    <string name="widget_lyrics">Rift Lyrics Player</string>
     <string name="widget_lyrics_description">Split-panel album artwork and synchronised lyrics display</string>
-    <string name="widget_turntable">Napster Vinyl Deck</string>
+    <string name="widget_turntable">Rift Vinyl Deck</string>
     <string name="turntable_widget_description">Retro vinyl record player with album art and transport controls</string>
     <string name="widget_description">Compact 2×2 dot equaliser and album art player</string>
     <string name="widget_cfg_background">Background</string>
@@ -1049,13 +1049,6 @@
     <string name="force_selected_quality_desc">On: always use the quality selected above, even if a lossless module or Tidal would otherwise upgrade it to FLAC.</string>
     <string name="login_validation_failed_retrying">Couldn\'t confirm sign-in, retrying…</string>
     <string name="login_validation_failed_final">Sign-in failed. Go back and try again.</string>
-    <string name="support_section">Support</string>
-    <string name="support_upi">UPI</string>
-    <string name="donation_prompt_title">Enjoying ?</string>
-    <string name="donation_prompt_message">If  has been useful to you, consider chipping in a little to help keep it going. Totally optional, never required.</string>
-    <string name="donation_prompt_upi">Support via UPI</string>
-    <string name="donation_prompt_later">Maybe later</string>
-    <string name="donation_prompt_dont_ask">Don\'t ask again</string>
     <string name="dj_readout_analyzing">Auto-DJ · analysing…</string>
     <string name="hide_volume_bar">Hide Volume Bar</string>
     <string name="hide_volume_bar_desc">Hide the volume slider in the player\'s menu</string>

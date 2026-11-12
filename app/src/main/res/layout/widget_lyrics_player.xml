@@ -3,6 +3,7 @@
     android:id="@+id/widget_lyrics_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/widget_lyrics_card_bg"
     android:theme="@style/Theme.Widget.Napster">
 
     <!-- Card Background (Rounded rect, dark navy/black) -->
@@ -31,7 +32,7 @@
                 android:id="@+id/widget_lyrics_art"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:contentDescription="@string/album_art" />
 
             <!-- Subtly animated/static bottom-left equaliser motif on top of art -->
@@ -84,6 +85,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFFFF"
+                    android:text="Tap to start listening"
                     android:maxLines="3"
                     android:ellipsize="end"
                     android:lineSpacingExtra="3dp" />
@@ -97,6 +99,7 @@
                     android:gravity="center"
                     android:letterSpacing="0.2"
                     android:textSize="13sp"
+                    android:text="•  •  •"
                     android:textColor="#55FFFFFF" />
             </LinearLayout>
 

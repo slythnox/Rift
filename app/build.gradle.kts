@@ -36,11 +36,11 @@ plugins {
 }
 
 base {
-    archivesName.set("Napster")
+    archivesName.set("RIFT")
 }
 
 android {
-    namespace = "com.beatwave.music"
+    namespace = "com.rift.music"
     compileSdk = 37
     ndkVersion = "27.0.12077973"
 
@@ -347,6 +347,8 @@ dependencies {
     implementation(libs.androidx.profileinstaller)
 
     testImplementation(libs.junit)
+    testImplementation("org.xerial:sqlite-jdbc:3.45.1.0")
+    testImplementation("androidx.room:room-testing:2.8.4")
 }
 
 

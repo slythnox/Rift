@@ -3,6 +3,7 @@
     android:id="@+id/widget_vinyl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/widget_vinyl_card_bg"
     android:theme="@style/Theme.Widget.Napster">
 
     <!-- Dark rounded enclosure background -->
@@ -36,7 +37,7 @@
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/widget_vinyl_deck" />
 
-            <!-- Time remaining or A-B badge overlay (top-left / bottom-left) -->
+            <!-- Time remaining text overlay (top-left) -->
             <TextView
                 android:id="@+id/widget_vinyl_time_text"
                 android:layout_width="wrap_content"
@@ -46,16 +47,6 @@
                 android:layout_marginTop="2dp"
                 android:textColor="#99FFFFFF"
                 android:textSize="11sp" />
-
-            <TextView
-                android:id="@+id/widget_vinyl_badge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|start"
-                android:layout_marginStart="4dp"
-                android:layout_marginBottom="2dp"
-                android:textColor="#55FFFFFF"
-                android:textSize="10sp" />
         </FrameLayout>
 
         <!-- Right: Cover, Metadata, Transport Buttons -->
@@ -68,30 +59,14 @@
             android:paddingEnd="4dp"
             android:gravity="center_vertical">
 
-            <!-- Top Row: Album Cover Artwork + Open App Pill -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical|center_horizontal">
-
-                <ImageView
-                    android:id="@+id/widget_vinyl_album_art"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="@string/album_art" />
-
-                <ImageView
-                    android:id="@+id/widget_vinyl_open_app"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="16dp"
-                    android:alpha="0.8"
-                    android:visibility="gone"
-                    android:src="@drawable/dock_to_top"
-                    android:contentDescription="@string/app_name" />
-            </LinearLayout>
+            <!-- Top: Album Cover Artwork -->
+            <ImageView
+                android:id="@+id/widget_vinyl_album_art"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/album_art" />
 
             <!-- Middle: Song Title & Artist -->
             <TextView
@@ -104,6 +79,7 @@
                 android:ellipsize="end"
                 android:textSize="13sp"
                 android:textStyle="bold"
+                android:text="@string/app_name"
                 android:textColor="#FFFFFFFF" />
 
             <TextView
@@ -115,6 +91,7 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textSize="11sp"
+                android:text="Ready to play"
                 android:textColor="#88FFFFFF" />
 
             <!-- Bottom: Previous, Play/Pause, Next Controls -->
@@ -124,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:orientation="horizontal"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:gravity="center">
 
                 <ImageView

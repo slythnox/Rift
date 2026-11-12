@@ -1,6 +1,6 @@
-# Contributing to Napster
+# Contributing to Rift
 
-Thank you for your interest in contributing to Napster. This guide outlines architectural constraints, engineering standards, and the pull request workflow.
+Thank you for your interest in contributing to Rift. This guide outlines architectural constraints, engineering standards, and the pull request workflow.
 
 ---
 
@@ -8,8 +8,8 @@ Thank you for your interest in contributing to Napster. This guide outlines arch
 
 Before submitting changes, ensure your contributions adhere to these non-negotiable principles:
 
-1. **Preserve Internal Namespace:** Do not alter the Kotlin namespace `com.beatwave.music` or the application ID `com.napster.music`. Compatibility with existing Room databases and DataStore preferences relies upon these exact identifiers.
-2. **Room Database Integrity:** Never modify existing Room migration files (versions 1 through 37). When altering the schema, increment the version number, author a migration step in `InternalDatabase.kt`, and export the new JSON schema. Compatibility entities such as `RecognitionHistory` must remain untouched.
+1. **Preserve Application Identity & Namespace:** Do not alter the Kotlin namespace `com.rift.music` or the application ID `com.napster.music`. Compatibility with existing Room databases, app-private storage, in-place app updates, and DataStore preferences relies upon these exact identifiers.
+2. **Room Database Integrity:** Never modify existing Room migration files (versions 1 through 38). When altering the schema, increment the version number, author a migration step in `InternalDatabase.kt`, and export the new JSON schema. Compatibility entities such as `RecognitionHistory` must remain untouched.
 3. **Non-Blocking Main Thread:** Avoid `runBlocking` calls on the main thread or within `Player.Listener` callbacks in `MusicService.kt`. Maintain in-memory cached state and observe DataStore streams asynchronously.
 4. **Resilient Integrations:** Optional integrations (scrobbling, lyrics providers, alternative stream resolvers) must fail gracefully without disrupting audio playback, stalling the queue, or crashing the process.
 5. **Zero Telemetry Policy:** Do not introduce analytics SDKs, advertising beacons, or remote tracking daemons.

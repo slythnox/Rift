@@ -13,6 +13,7 @@ data class SpotifyPlaylistMetadata(
     val name: String,
     val tracks: List<SpotifyTrack>,
     val imageUrl: String? = null,
+    val totalTracks: Int = tracks.size,
 )
 
 /** Adapter for the existing public Spotify embed parser. No account state is used. */
@@ -20,14 +21,7 @@ class PublicSpotifyMetadataClient(
     private val client: Spotify = Spotify,
 ) : SpotifyMetadataClient {
     override suspend fun getPlaylistMetadata(playlistId: String): Result<SpotifyPlaylistMetadata> =
-        client.fetchPlaylistEmbedTracks(playlistId).map { tracks ->
-            SpotifyPlaylistMetadata(
-                id = playlistId,
-                name = "Spotify playlist",
-                tracks = tracks,
-                imageUrl = tracks.firstNotNullOfOrNull { it.album?.images?.firstOrNull()?.url },
-            )
-        }
+        client.fetchPlaylistMetadata(playlistId)
 
     override suspend fun getTrackMetadata(trackId: String): Result<SpotifyTrack> =
         Result.failure(UnsupportedOperationException(

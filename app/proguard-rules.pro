@@ -6,20 +6,20 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # WEB_REMIX Streaming - WebView JavaScript interfaces
--keepclassmembers class com.beatwave.music.utils.sabr.EjsNTransformSolver$SolverWebView {
+-keepclassmembers class com.rift.music.utils.sabr.EjsNTransformSolver$SolverWebView {
     @android.webkit.JavascriptInterface public *;
 }
--keepclassmembers class com.beatwave.music.utils.cipher.CipherWebView {
+-keepclassmembers class com.rift.music.utils.cipher.CipherWebView {
     @android.webkit.JavascriptInterface public *;
 }
--keepclassmembers class com.beatwave.music.utils.potoken.PoTokenWebView {
+-keepclassmembers class com.rift.music.utils.potoken.PoTokenWebView {
     @android.webkit.JavascriptInterface public *;
 }
 
 # Keep streaming utility classes
--keep class com.beatwave.music.utils.cipher.** { *; }
--keep class com.beatwave.music.utils.sabr.** { *; }
--keep class com.beatwave.music.utils.potoken.** { *; }
+-keep class com.rift.music.utils.cipher.** { *; }
+-keep class com.rift.music.utils.sabr.** { *; }
+-keep class com.rift.music.utils.potoken.** { *; }
 
 # Keep coroutine continuation for WebView callbacks
 -keepclassmembers class * {
@@ -117,11 +117,11 @@
 
 ## Queue Persistence Rules
 # Keep queue-related classes to prevent serialization issues in release builds
--keep class com.beatwave.music.models.PersistQueue { *; }
--keep class com.beatwave.music.models.PersistPlayerState { *; }
--keep class com.beatwave.music.models.QueueData { *; }
--keep class com.beatwave.music.models.QueueType { *; }
--keep class com.beatwave.music.playback.queues.** { *; }
+-keep class com.rift.music.models.PersistQueue { *; }
+-keep class com.rift.music.models.PersistPlayerState { *; }
+-keep class com.rift.music.models.QueueData { *; }
+-keep class com.rift.music.models.QueueType { *; }
+-keep class com.rift.music.playback.queues.** { *; }
 
 # Keep serialization methods for queue persistence
 -keepclassmembers class * implements java.io.Serializable {
@@ -135,7 +135,7 @@
 -keep interface com.yalantis.ucrop** { *; }
 
 ## Google Cast Rules
--keep class com.beatwave.music.cast.** { *; }
+-keep class com.rift.music.cast.** { *; }
 -keep class com.google.android.gms.cast.** { *; }
 -keep class androidx.mediarouter.** { *; }
 
@@ -154,3 +154,7 @@
 
 ## Kotlinx Serialization
 -keepattributes *Annotation*
+
+## Pinyin Helper
+-dontwarn com.github.promeg.pinyinhelper.**
+

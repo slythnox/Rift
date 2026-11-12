@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="160dp"
+    android:viewportWidth="160"
+    android:viewportHeight="160">
+
+    <!-- Vinyl Disc Base (black circle) -->
+    <path
+        android:fillColor="#0A0B0E"
+        android:pathData="M 80 148 A 68 68 0 1 1 80 12 A 68 68 0 1 1 80 148 Z" />
+
+    <!-- Vinyl Groove Rings (subtle strokes) -->
+    <path
+        android:strokeColor="#25FFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M 80 140 A 60 60 0 1 1 80 20 A 60 60 0 1 1 80 140 Z" />
+    <path
+        android:strokeColor="#25FFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M 80 130 A 50 50 0 1 1 80 30 A 50 50 0 1 1 80 130 Z" />
+    <path
+        android:strokeColor="#25FFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M 80 120 A 40 40 0 1 1 80 40 A 40 40 0 1 1 80 120 Z" />
+    <path
+        android:strokeColor="#25FFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M 80 110 A 30 30 0 1 1 80 50 A 30 30 0 1 1 80 110 Z" />
+
+    <!-- Center Label (colored album art disc) -->
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M 80 106 A 26 26 0 1 1 80 54 A 26 26 0 1 1 80 106 Z" />
+
+    <!-- Clean Music Glyph on Center Disc -->
+    <group
+        android:translateX="68"
+        android:translateY="68"
+        android:scaleX="1.0"
+        android:scaleY="1.0">
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M12,3v10.55c-0.59,-0.34 -1.27,-0.55 -2,-0.55 -2.21,0 -4,1.79 -4,4s1.79,4 4,4 4,-1.79 4,-4V7h4V3h-6z" />
+    </group>
+
+    <!-- Center spindle hole -->
+    <path
+        android:fillColor="#0A0B0E"
+        android:pathData="M 80 84 A 4 4 0 1 1 80 76 A 4 4 0 1 1 80 84 Z" />
+</vector>

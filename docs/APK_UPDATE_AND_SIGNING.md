@@ -1,16 +1,16 @@
 # APK Update, Signing & Release Engineering
 
-This document outlines the release signing architecture, certificate verification protocols, keystore security procedures, and safe in-place APK update workflows for **Napster** (`com.napster.music`).
+This document outlines the release signing architecture, certificate verification protocols, keystore security procedures, and safe in-place APK update workflows for **Rift** (formerly Napster, `com.napster.music`).
 
 ---
 
 ## 1. Architectural Principles & Compatibility Invariants
 
-Because Napster is distributed directly via GitHub Releases and F-Droid rather than Google Play, the Android OS Package Manager (`PackageManager`) enforces signature and version constraints directly on the user's device during updates.
+Because Rift is distributed directly via GitHub Releases and F-Droid rather than Google Play, the Android OS Package Manager (`PackageManager`) enforces signature and version constraints directly on the user's device during updates.
 
 For an existing user to install an update without data loss or installation failures (`INSTALL_FAILED_UPDATE_INCOMPATIBLE`), three strict conditions must be satisfied:
 
-1. **Identical Application ID:** The new build must declare `applicationId = "com.napster.music"` in `defaultConfig`. (The Kotlin package namespace `com.beatwave.music` remains internal to the source code to safeguard Room database serialisation).
+1. **Identical Application ID:** The new build must declare `applicationId = "com.napster.music"` in `defaultConfig`. (The Kotlin package namespace `com.rift.music` is the internal source code namespace, while `applicationId` remains `com.napster.music` to preserve device update compatibility).
 2. **Matching Signing Certificate:** The new APK must be signed by the identical private key that signed the previously installed APK. If the certificate's SHA-256 fingerprint differs by even one byte, Android terminates installation immediately with `INSTALL_FAILED_UPDATE_INCOMPATIBLE`.
 3. **Monotonically Increasing Version Code:** The new APK's `versionCode` must be strictly greater than the installed APK's `versionCode` (`newVersionCode > oldVersionCode`). Android blocks installation if `newVersionCode <= oldVersionCode` unless the user uninstalls the app first (which destroys all local playlists, database records, and downloads).
 
@@ -38,12 +38,12 @@ For an existing user to install an update without data loss or installation fail
 
 ## 2. Monotonic Versioning Protocol
 
-Napster maintains a single source of truth for application versions in [`version.properties`](../version.properties):
+Rift maintains a single source of truth for application versions in [`version.properties`](../version.properties):
 
 ```properties
 VERSION_MAJOR=1
 VERSION_MINOR=0
-VERSION_PATCH=0
+VERSION_PATCH=4
 ```
 
 ### Version Code Derivation Formula
@@ -172,7 +172,7 @@ Verify that `versionCode` has strictly increased using `aapt2`:
 
 When an APK update satisfies the cryptographic and version requirements above, the Android Package Manager performs an atomic in-place upgrade preserving:
 
-1. **Room SQLite Database (`music.db`):** All 37 sequential schema migrations are preserved. Playlists, history, liked tracks, offline metadata, and artist relationships remain intact.
+1. **Room SQLite Database (`song.db`):** All 38 sequential schema migrations are preserved (including schema 38 disliked_song table). Playlists, history, liked tracks, offline metadata, and artist relationships remain intact.
 2. **DataStore Preferences:** All user settings, equalisation presets, audio quality preferences, and UI theme configurations are preserved.
 3. **Downloaded Media:** Offline cached audio files residing in `context.filesDir` (managed by `ExoDownloadService`) remain intact across updates.
 4. **Coil Image Disk Cache:** Artwork thumbnails cached in `filesDir/coil/` persist across updates, avoiding network refetching on first launch.
@@ -185,15 +185,15 @@ When an APK update satisfies the cryptographic and version requirements above, t
 > This section is an architectural RFC and design evaluation. In accordance with release stability and security best practices, automatic APK downloading/updating is not currently enabled in the binary.
 
 ### Overview
-Because Napster does not rely on Google Play, users currently check GitHub Releases manually. A future in-app update checker can notify users of new releases and facilitate verified APK downloads.
+Because Rift does not rely on Google Play, users currently check GitHub Releases manually. A future in-app update checker can notify users of new releases and facilitate verified APK downloads.
 
 ### Recommended System Architecture
 
 ```
 ┌─────────────────────────────────┐
-│     Napster Client App          │
+│     Rift Client App             │
 └──────────────┬──────────────────┘
-               │ 1. GET /repos/slythnox/Napster/releases/latest
+               │ 1. GET /repos/slythnox/Rift/releases/latest
                ▼
 ┌─────────────────────────────────┐
 │     GitHub REST API             │
@@ -228,7 +228,7 @@ Because Napster does not rely on Google Play, users currently check GitHub Relea
    - Check only on explicit user request or at most once every 24 hours on Wi-Fi.
 
 2. **Architecture-Aware Asset Matching:**
-   - Napster builds both architecture-specific APKs (`arm64-v8a`, `armeabi-v7a`, `x86_64`) and `universal` APKs.
+   - Rift builds both architecture-specific APKs (`arm64-v8a`, `armeabi-v7a`, `x86_64`) and `universal` APKs.
    - The client must inspect `android.os.Build.SUPPORTED_ABIS` and select the optimal APK asset rather than downloading a heavy universal build.
 
 3. **Cryptographic Integrity Verification:**

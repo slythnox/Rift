@@ -1,12 +1,12 @@
 # Release Readiness Checklist
 
-This document provides a factual, step-by-step verification checklist required prior to tagging or publishing a release of Napster.
+This document provides a factual, step-by-step verification checklist required prior to tagging or publishing a release of Rift.
 
 ---
 
 ## 1. Functional Verification
 
-- [ ] **Unified Branding:** Verify that the launcher icon, adaptive icon, splash screen, top app bar, widgets, and settings screens display "Napster" consistently without residual fork titles.
+- [ ] **Unified Branding:** Verify that the launcher icon, adaptive icon, splash screen, top app bar, widgets, and settings screens display "Rift" consistently without residual fork titles.
 - [ ] **Settings Navigation Integrity:** Verify that every destination in `SettingsScreen.kt` navigates correctly and that deleted legacy routes (e.g. Account, Legacy Story, Listen Together) are completely inaccessible.
 - [ ] **Privacy Disclosures:** Confirm that `AboutScreen.kt` and `PrivacySettings.kt` accurately reflect data storage and external network flows without fabricated telemetry claims.
 - [ ] **Public Playlist Ingestion:** Confirm that valid public Spotify and YouTube Music playlist URLs import successfully, resolve track titles, and populate the local Room database.
@@ -17,6 +17,11 @@ This document provides a factual, step-by-step verification checklist required p
 - [ ] **HTTP Streaming Add-ons:** Verify add-on server registration, manifest parsing, query response, and 429 Retry-After backoff.
 - [ ] **Lossless FLAC Export:** Export an offline cached FLAC track via SAF and verify that Vorbis comment tags, cover art, and lyrics are embedded without altering audio frames. Verify non-FLAC streams export cleanly as M4A.
 - [ ] **Per-Network Quality:** Verify that Wi-Fi and Cellular quality settings route correctly and that transitions trigger reloads only when the resolved quality differs.
+- [ ] **Queue Reordering:** Long-press drag-and-drop on queue items reorders smoothly with visual elevation and edge auto-scrolling. In shuffle mode, Media3 `ShuffleOrder` is updated without restarting active playback.
+- [ ] **Disliked Songs & Restore:** Disliking a song skips it, excludes it from upcoming recommendations, and persists it to Room DB v38. Disliked Songs screen in Settings allows instant restoration.
+- [ ] **Autoplay Infinity Control:** Autoplay toggle chip in the Queue header and Player screen persistently toggles queue continuation and auto-mix radio recommendations.
+- [ ] **Large Spotify Playlist Import:** Verify high-capacity pagination handles 1,000+ tracks via unauthenticated guest sessions, honoring `Retry-After` headers and preserving duplicate tracks.
+- [ ] **Room Database Migration 37 → 38:** Ensure version-37 user data cleanly upgrades to version 38 with the `disliked_song` table and index created without data loss.
 
 ---
 

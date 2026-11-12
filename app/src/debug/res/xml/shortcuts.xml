@@ -6,8 +6,8 @@
         android:shortcutId="search"
         android:shortcutShortLabel="@string/search">
         <intent
-            android:action="com.beatwave.music.action.SEARCH"
-            android:targetClass="com.beatwave.music.app.MainActivity"
+            android:action="com.rift.music.action.SEARCH"
+            android:targetClass="com.rift.music.app.MainActivity"
             android:targetPackage="com.napster.music.debug" />
     </shortcut>
     <shortcut
@@ -16,8 +16,8 @@
         android:shortcutId="library"
         android:shortcutShortLabel="@string/filter_library">
         <intent
-            android:action="com.beatwave.music.action.LIBRARY"
-            android:targetClass="com.beatwave.music.app.MainActivity"
+            android:action="com.rift.music.action.LIBRARY"
+            android:targetClass="com.rift.music.app.MainActivity"
             android:targetPackage="com.napster.music.debug" />
     </shortcut>
 </shortcuts>

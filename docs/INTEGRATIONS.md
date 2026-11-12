@@ -1,6 +1,6 @@
 # Integrations Architecture
 
-This document describes all verified optional third-party integrations in Napster, including scrobbling protocols, alternative stream resolution, canvas providers, lyrics engines, and updater mechanisms.
+This document describes all verified optional third-party integrations in Rift, including modular HTTP add-ons, scrobbling protocols, alternative stream resolution, canvas providers, lyrics engines, and release distribution.
 
 ---
 
@@ -13,7 +13,18 @@ All integrations are strictly optional augmentations to the core streaming exper
 
 ---
 
-## 2. Scrobbling Integrations
+## 2. Modular HTTP Streaming Add-ons (`AddonClient.kt`, `AddonSource.kt`)
+
+Rift supports an open JSON streaming protocol allowing users to connect modular HTTP streaming add-on servers:
+- **Specification:** Servers declare capabilities via `/manifest.json` (`search`, `stream`, quality tiers `LOSSLESS`, `HIGH`, `LOW`).
+- **In-Flight Deduplication (`SharedCalls.kt`):** Concurrent queries for the same query string are coalesced into a single network call.
+- **Rate-Limiting Compliance:** Fully parses HTTP 429 and `Retry-After` headers, enforcing client-side cooldowns without server flooding.
+- **Silent Track Mismatch Guard (`TrackMatcher.kt`):** Uses multi-factor string normalization and duration comparison to reject live recordings, acoustic covers, or remixes when the user requested studio recordings.
+- **Direct Stream URL Optimization:** Bypasses intermediate `/stream/{id}` calls if the search result payload directly supplies `streamURL`.
+
+---
+
+## 3. Scrobbling Integrations
 
 ### Last.fm (`lastfm/` module)
 - **Protocol:** Standard Last.fm Web Services API v2.0.
@@ -29,7 +40,7 @@ All integrations are strictly optional augmentations to the core streaming exper
 
 ---
 
-## 3. Alternative Audio Stream Providers (`ExternalStreamProviderResolver.kt`)
+## 4. Alternative Audio Stream Providers (`ExternalStreamProviderResolver.kt`)
 
 Users can optionally configure alternative stream resolution providers for higher bitrate or alternate audio mastering:
 - **Tidal / JioSaavn / Spine:** Optional provider clients queried according to user-configured priority rankings.
@@ -38,7 +49,7 @@ Users can optionally configure alternative stream resolution providers for highe
 
 ---
 
-## 4. Synchronised Lyrics Providers
+## 5. Synchronised Lyrics Providers
 
 Lyrics are queried asynchronously according to user-customised priority rankings across multiple independent modules:
 - **KuGou (`kugou/`):** High-precision time-synchronised and translated lyrics.
@@ -50,7 +61,7 @@ Lyrics are queried asynchronously according to user-customised priority rankings
 
 ---
 
-## 5. Visual Canvas Providers
+## 6. Visual Canvas Providers
 
 The player UI supports dynamic background video loops and canvas animations:
 - **Apple Music Canvas (`applecanvas/`):** Fetches official artist video loops and motion artwork.
@@ -60,7 +71,7 @@ The player UI supports dynamic background video loops and canvas animations:
 
 ---
 
-## 6. Release Distribution
+## 7. Release Distribution
 
-- **GitHub Releases:** Official releases and APK artifacts are distributed via `github.com/slythnox/Napster/releases`.
+- **GitHub Releases:** Official releases and APK artifacts are distributed via `github.com/slythnox/Rift/releases`.
 - **Packaging:** Builds are produced as signed APKs via automated GitHub Actions CI workflows. In-app self-updating was removed in favour of standard platform installation and package managers (F-Droid / Obtainium / direct APK).

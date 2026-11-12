@@ -12,6 +12,9 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
+    <!-- RIFT theme aliases -->
+    <style name="Theme.Rift" parent="Theme.Napster" />
+    <style name="Theme.Widget.Rift" parent="Theme.Widget.Napster" />
     <!-- Compatibility alias for Theme.BeatWave -->
     <style name="Theme.BeatWave" parent="Theme.Napster" />
 

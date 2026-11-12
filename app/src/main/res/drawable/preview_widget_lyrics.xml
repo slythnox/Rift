@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="160dp"
+    android:viewportWidth="320"
+    android:viewportHeight="160">
+
+    <!-- Card Background -->
+    <path
+        android:fillColor="#0D1117"
+        android:pathData="M 24 0 H 296 A 24 24 0 0 1 320 24 V 136 A 24 24 0 0 1 296 160 H 24 A 24 24 0 0 1 0 136 V 24 A 24 24 0 0 1 24 0 Z" />
+
+    <!-- Left: Artwork Card -->
+    <path
+        android:fillColor="#151E2E"
+        android:pathData="M 26 14 H 124 A 14 14 0 0 1 138 28 V 132 A 14 14 0 0 1 124 146 H 26 A 14 14 0 0 1 12 132 V 28 A 14 14 0 0 1 26 14 Z" />
+
+    <!-- Left: Red Accent outline / edge on artwork -->
+    <path
+        android:strokeColor="#FF2A4D"
+        android:strokeWidth="2.5"
+        android:pathData="M 138 16 V 144" />
+
+    <!-- Soft aura inside left card -->
+    <path
+        android:fillColor="#1F2C42"
+        android:pathData="M 75 106 A 26 26 0 1 1 75 54 A 26 26 0 1 1 75 106 Z" />
+
+    <!-- Center Material Music Note Icon -->
+    <group
+        android:translateX="55.8"
+        android:translateY="60.8"
+        android:scaleX="1.6"
+        android:scaleY="1.6">
+        <path
+            android:fillColor="#E2E8F0"
+            android:pathData="M12,3v10.55c-0.59,-0.34 -1.27,-0.55 -2,-0.55 -2.21,0 -4,1.79 -4,4s1.79,4 4,4 4,-1.79 4,-4V7h4V3h-6z" />
+    </group>
+
+    <!-- Left: Equalizer dots motif on bottom -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 28 136 A 3 3 0 1 1 28 130 A 3 3 0 1 1 28 136 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 38 128 A 3 3 0 1 1 38 122 A 3 3 0 1 1 38 128 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 48 138 A 3 3 0 1 1 48 132 A 3 3 0 1 1 48 138 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 58 132 A 3 3 0 1 1 58 126 A 3 3 0 1 1 58 132 Z" />
+
+    <!-- Right: Header (Song title & Artist) -->
+    <path
+        android:fillColor="#88FFFFFF"
+        android:pathData="M 154 22 H 240 V 30 H 154 Z" />
+
+    <!-- Right: Previous lyrics line (subdued) -->
+    <path
+        android:fillColor="#44FFFFFF"
+        android:pathData="M 154 44 H 260 V 54 H 154 Z" />
+
+    <!-- Right: Active lyrics line (highlighted white, prominent) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 154 66 H 300 V 82 H 154 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 154 88 H 270 V 104 H 154 Z" />
+
+    <!-- Right: Upcoming lyrics line (subdued) -->
+    <path
+        android:fillColor="#55FFFFFF"
+        android:pathData="M 154 116 H 250 V 126 H 154 Z" />
+    <path
+        android:fillColor="#33FFFFFF"
+        android:pathData="M 154 134 H 220 V 142 H 154 Z" />
+
+</vector>

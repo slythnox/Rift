@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="140dp"
+    android:height="160dp"
+    android:viewportWidth="140"
+    android:viewportHeight="160">
+
+    <!-- Left Panel Background -->
+    <path
+        android:fillColor="#151E2E"
+        android:pathData="M 0 0 H 140 V 160 H 0 Z" />
+
+    <!-- Right Red Accent Divider Line -->
+    <path
+        android:strokeColor="#FF2A4D"
+        android:strokeWidth="2"
+        android:pathData="M 139 0 V 160" />
+
+    <!-- Ambient Circular Aura behind Music Glyph -->
+    <path
+        android:fillColor="#1F2C42"
+        android:pathData="M 70 52 A 28 28 0 1 1 70 108 A 28 28 0 1 1 70 52 Z" />
+
+    <!-- Centered Material Music Note Icon -->
+    <group
+        android:translateX="50.8"
+        android:translateY="60.8"
+        android:scaleX="1.6"
+        android:scaleY="1.6">
+        <path
+            android:fillColor="#E2E8F0"
+            android:pathData="M12,3v10.55c-0.59,-0.34 -1.27,-0.55 -2,-0.55 -2.21,0 -4,1.79 -4,4s1.79,4 4,4 4,-1.79 4,-4V7h4V3h-6z" />
+    </group>
+
+    <!-- Equalizer Dots Motif on Bottom Left -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 24 141.5 A 3.5 3.5 0 1 1 24 134.5 A 3.5 3.5 0 1 1 24 141.5 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 38 133.5 A 3.5 3.5 0 1 1 38 126.5 A 3.5 3.5 0 1 1 38 133.5 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 52 143.5 A 3.5 3.5 0 1 1 52 136.5 A 3.5 3.5 0 1 1 52 143.5 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 66 137.5 A 3.5 3.5 0 1 1 66 130.5 A 3.5 3.5 0 1 1 66 137.5 Z" />
+
+</vector>

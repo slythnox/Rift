@@ -1,22 +1,24 @@
 # Privacy, Network Flows and Android Permissions
 
-This document provides a source-verified overview of how Napster handles local data storage, network traffic, third-party services, and Android device permissions.
+This document provides a source-verified overview of how Rift handles local data storage, network traffic, third-party services, and Android device permissions.
 
 ---
 
 ## 1. Zero Telemetry and Privacy Commitments
 
-- **Zero Analytics SDKs:** Napster does not integrate Google Analytics, Firebase Analytics, Crashlytics, Mixpanel, Segment, or any other tracking framework.
+- **Zero Analytics SDKs:** Rift does not integrate Google Analytics, Firebase Analytics, Crashlytics, Mixpanel, Segment, or any other tracking framework.
 - **Zero Advertising Trackers:** The application contains no advertising libraries, user-tracking beacons, or behavioural profiling daemons.
-- **Device-Bound Diagnostics:** Crash traces and logcat outputs remain strictly within the user's private device storage (`cache/napster_crash_*.txt`) and are never dispatched to external servers automatically.
+- **Device-Bound Diagnostics:** Crash traces and logcat outputs remain strictly within the user's private device storage and are never dispatched to external servers automatically.
 
 ---
 
 ## 2. Local Data Storage
 
 All persistent application data resides within the private Android sandbox (`/data/data/com.napster.music/`):
-- **Room SQLite Database (`internal.db`):** Stores song metadata, album and artist records, user-created playlists, listening history timestamps, search query logs, and offline download references.
-- **DataStore Preferences:** Stores boolean configuration flags, theme customisation choices, and optional service authentication tokens.
+- **Room SQLite Database (`song.db`):** Stores song metadata, album and artist records, user-created playlists, listening history timestamps, search query logs, and offline download references.
+- **DataStore Preferences:** Stores boolean configuration flags, theme customisation choices, optional service authentication tokens, and the Project ASI negative feedback journal (si_negative_journal).
+- **Disliked Songs & Taste Intelligence:** Disliked track entities (DislikedSongEntity) and ASI taste profile parameters reside strictly within on-device Room SQLite tables and DataStore journals; they are never uploaded, shared, or synchronized externally.
+- **On-Device Performance Telemetry:** Metrics displayed in Settings > App Usage (CPU load, GPU frame rendering duration, Network Wi-Fi and Cellular consumption) are calculated 100% on-device directly from local Linux kernel interfaces (/proc/stat) and Android framework APIs (NetworkStatsManager, TrafficStats). No usage telemetry is ever dispatched off the device.
 - **ExoPlayer Cache and Downloads:** Cached audio chunks and full offline tracks are stored in application-private storage or external scoped directories (`Android/data/com.napster.music/files/`).
 
 ---
